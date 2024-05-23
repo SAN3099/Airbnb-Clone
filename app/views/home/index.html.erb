@@ -5,10 +5,21 @@
         
             <% @properties.each do |prop|%>
                 <div class="group relative">
-                    <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200  group-hover:opacity-75 ">
-                        <img src="https://hips.hearstapps.com/hmg-prod/images/6c9a9a99-9c38-417e-a7f5-a45ede9b3407-1532627926.jpg" class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+                  <!--Slider main container-->
+
+                    <div class="swiper aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200  group-hover:opacity-75 ">
+                      <div class = "swiper-wrapper">
+                            <% prop.images.each do |imag|%>
+                                <%= image_tag imag, class: "swiper-slide h-full w-full object-cover object-center lg:h-full lg:w-full"%>
+                            <%end%>
+                      </div>
+                        <!--If needed navigation buttons-->
+                        <div class= "swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+
                     </div>
 
+                   
                     <div class="mt-2">
                         <div class=" flex justify-between">
                             <h3 class="text-base font-medium text-gray-700">
@@ -32,7 +43,7 @@
                         </div>
                       <p class="mt-0.5 text-base text-gray-500">Hosted by Sanchita</p>
                       <p class="mt-0.5 text-base text-gray-500">25-30 May</p>
-                      <p class="mt-0.5 text-base text-black">₹5000 <span class = "font-medium"></span> night</p>
+                      <p class="mt-0.5 text-base text-black"><%= humanized_money_with_symbol(prop.price)%> <span class = "font-medium"></span> night</p>
                     </div>
                 </div>
             <% end %>        
