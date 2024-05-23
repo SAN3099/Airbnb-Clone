@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+properties = Property.create!({
+    name:'Sample Property',
+    description: 'sample text',
+    headline: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    address_1: 'abcd',
+    address_2: 'efgh',
+    city: 'ijkl',
+    state: 'mnop',
+    country:'qrst'
+
+})
