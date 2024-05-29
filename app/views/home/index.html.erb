@@ -6,19 +6,48 @@
             <% @properties.each do |prop|%>
                 <div class="group relative">
                   <!--Slider main container-->
-
-                    <div class="swiper aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200  group-hover:opacity-75 ">
-                      <div class = "swiper-wrapper">
-                            <% prop.images.each do |imag|%>
-                                <%= image_tag imag, class: "swiper-slide h-full w-full object-cover object-center lg:h-full lg:w-full"%>
-                            <%end%>
-                      </div>
-                        <!--If needed navigation buttons-->
-                        <div class= "swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
-
+                    <div class = "realtive overflow-hidden rounded-md bg-gray-200">
+                        <div class="swiper">
+                            <div class = "swiper-wrapper">
+                                <% prop.images.each do |imag|%>
+                                   <%= image_tag imag, class: "swiper-slide h-full w-full object-cover object-center lg:h-full lg:w-full"%> 
+                                <%end%>
+                            </div>
+                            <!--If needed navigation buttons-->
+                            <div class= "swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>                   
+                        </div>
                     </div>
+                  <!--Wishlist icon setup-->
+                        <div class="absolute z-10 right-0 top-0 m-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" 
+                                viewBox="0 0 32 32" 
+                                aria-hidden="true" 
+                                role="presentation" 
+                                focusable="false"
+                                class="block h-6 w-6 stroke-white stroke-2 <%= prop.wishlisted_by?(current_user) ? 'fill-primary' : 'fill-none' %>"
+                                style="overflow: visible;"
+                                data-controller="wishlist"
+                                data-user-logged-in="<%= user_signed_in? %>"
+                                data-property-id="<%= prop.id %>"
+                                data-user-id="<%= current_user&.id %>"
+                                data-wishlist-id="<%= prop.wishlists.find_by(user: current_user)&.id %>"
+                                data-action="click->wishlist#updateWishlistStatus"
+                                data-status="<%= prop.wishlisted_by?(current_user) %>"
+                                >
+                              <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path>
+                            </svg>
+                        </div>
 
+
+                           <%# <div class="ckqgked atm_mj_1wugsn5 atm_e2_eeehkc atm_vy_kt00c5 cendrgz atm_gs18mo_1fdyxx4 atm_1b09myo_1fdyxx4 dir dir-ltr">
+                                    <button aria-label="Add to wishlist: Mashobra, India" data-testid="listing-card-save-button" type="button" 
+                                        class="l1ovpqvx atm_1he2i46_1k8pnbi_10saat9 atm_yxpdqi_1pv6nv4_10saat9 atm_1a0hdzc_w1h1e8_10saat9 atm_ywwsz3_1afjdsa_10saat9 atm_1lnvhrj_zhgkwc_10saat9 atm_8i46q5_63ecz1_10saat9 bq05a0m atm_9j_tlke0l atm_mk_h2mmj6 atm_r3_1h6ojuz atm_rd_glywfm atm_70_5j5alw atm_26_d0eyo3 atm_tl_1gw4zv3 atm_9j_13gfvf7_1o5j5ji vq7srz5 atm_bx_48h72j atm_c8_2x1prs atm_g3_1jbyh58 atm_cs_9dzvea atm_kd_glywfm atm_h_1h6ojuz atm_2d_1j28jx2 atm_5j_1ssbidh atm_3f_glywfm atm_7l_jt7fhx atm_9s_116y0ak atm_fc_1h6ojuz atm_uc_10d7vwn atm_gi_esb3ot atm_l8_a40nd8 atm_vy_1fdyxx4 atm_e2_1fdyxx4 atm_uc_glywfm__1rrf6b5 atm_3f_glywfm_jo46a5 atm_l8_idpfg4_jo46a5 atm_gi_idpfg4_jo46a5 atm_3f_glywfm_1icshfk atm_kd_glywfm_19774hq atm_uc_aaiy6o_1w3cfyq atm_uc_glywfm_1w3cfyq_1rrf6b5 atm_uc_aaiy6o_pfnrn2_1oszvuo atm_uc_glywfm_pfnrn2_1o31aam atm_k4_kb7nvz_1o5j5ji atm_70_18bflhl_1w3cfyq atm_tr_5cnv85_1w3cfyq atm_tr_ffmgpj_94ny3c atm_70_18bflhl_pfnrn2_1oszvuo atm_tr_5cnv85_pfnrn2_1oszvuo atm_tr_ffmgpj_1a1naid_1oszvuo atm_tr_5cnv85_1nos8r_uv4tnr atm_tr_ffmgpj_z5n1qr_uv4tnr atm_tr_ffmgpj_csw3t1 dir dir-ltr">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" style="display: block; fill: rgba(0, 0, 0, 0.5); height: 24px; width: 24px; stroke: var(--linaria-theme_palette-icon-primary-inverse); stroke-width: 2px; overflow: visible;" aria-hidden="true" role="presentation" focusable="false">
+                                            <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path>
+                                        </svg>
+                                    </button>
+                           </div> %>
                    
                     <div class="mt-2">
                         <div class=" flex justify-between">
@@ -38,7 +67,7 @@
                                         <path fill-rule="evenodd" d="m15.1 1.58-4.13 8.88-9.86 1.27a1 1 0 0 0-.54 1.74l7.3 6.57-1.97 9.85a1 1 0 0 0 1.48 1.06l8.62-5 8.63 5a1 1 0 0 0 1.48-1.06l-1.97-9.85 7.3-6.57a1 1 0 0 0-.55-1.73l-9.86-1.28-4.12-8.88a1 1 0 0 0-1.82 0z">
                                         </path>
                                     </svg>
-                                4.8
+                                <%= (prop.average_final_rating).round(2)%>
                             </p>
                         </div>
                       <p class="mt-0.5 text-base text-gray-500">Hosted by Sanchita</p>
